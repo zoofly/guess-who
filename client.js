@@ -9,15 +9,14 @@ function onReady() {
     console.log('Start!')
     displayPictures();
     randomName();
-    // guess()
-    // $('img').on('click', '.picture', guess);
+    $('.photos').on('click', '.picture', guess);
 }
 
 function displayPictures() {
     console.log('in displayPictures')
     for (let person of people.sort(function () { return  0.5 - Math.random() })) { //idk how this really works. Also read this isn't the best way to randomize data
         let url = $(`
-        <div class="image"><img src="https://github.com/${person.githubUsername}.png?size=250"
+        <div class="image"><img data-name="${person.name}" src="https://github.com/${person.githubUsername}.png?size=250"
         alt="Profile image of ${person.name}"></div>`);
 
         url.data(person);
@@ -32,74 +31,20 @@ function randomNumber(min, max){
 
 
 function randomName() { //randomizes peopleArray names and populates it on DOM 
-    console.log('in randomName')
-    let i = randomNumber(0, people.length - 1); //randomizes items in array from start to end
-    let randomlyChosen = "";
-    randomlyChosen = people[i].name;
+    //randomizes items in array from start to end
+    let randomlyChosen = people[Math.floor(Math.random() * people.length)];
     $('#displayName').empty();
-    $('#displayName').append(`<h1> Click on: ${randomlyChosen} </h1>`);
+    $('#displayName').append(`<h1> Click on: ${randomlyChosen.name} </h1>`);
+    console.log('in randomName', randomlyChosen.name)
 }
 
 //TO DO: create a function for guessing
 function guess() {
-    console.log('in guess');
-    let choice = $(this).data(); 
-    let randomlyChosen = "";
-    //if the random name on header matches the person picture you win!
-    if (randomlyChosen === choice.name) { 
-        alert('You win');
-        randomName();
-    }
-    //if click on wrong person, try again
-    else {
-        alert(`Try again!
-        `);
+    console.log($(this).closest('div').data('name'))
+    if ($(this).closest('img').data('name') === randomlyChosen.name) {
+        alert('You got it! Refresh the page and play again! :D')
+    } else {
+        alert('Not quite! Give it another shot! You got this!')
     }
 }
 
-
-
-
-
-
-
-
-
-
-// function shuffleArray(people) {
-//     var currentIndex = people.length,  randomIndex;
-  
-//     // While there remain elements to shuffle...
-//     while (0 !== currentIndex) {
-  
-//       // Pick a remaining element...
-//       randomIndex = Math.floor(Math.random() * currentIndex);
-//       currentIndex--;
-  
-//       // And swap it with the current element.
-//       [people[currentIndex], people[randomIndex]] = [
-//         people[randomIndex], people[currentIndex]];
-//     }
-  
-//     return people;
-//   }
-
-
-
-// function shuffle(people) {
-//     var m = people.length, t, i;
-  
-//     // While there remain elements to shuffle…
-//     while (m) {
-  
-//       // Pick a remaining element…
-//       i = Math.floor(Math.random() * m--);
-  
-//       // And swap it with the current element.
-//       t = people[m];
-//       people[m] = people[i];
-//       people[i] = t;
-//     }
-  
-//     return people;
-//   }
