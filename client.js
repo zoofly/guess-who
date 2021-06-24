@@ -28,11 +28,11 @@ function displayPictures() {
 function randomNumber(min, max){
     return Math.floor(Math.random() * (1 + max - min) + min);
 }
-
+let randomlyChosen = people[Math.floor(Math.random() * people.length)];
 
 function randomName() { //randomizes peopleArray names and populates it on DOM 
     //randomizes items in array from start to end
-    let randomlyChosen = people[Math.floor(Math.random() * people.length)];
+   
     $('#displayName').empty();
     $('#displayName').append(`<h1> Click on: ${randomlyChosen.name} </h1>`);
     console.log('in randomName', randomlyChosen.name)
@@ -40,11 +40,11 @@ function randomName() { //randomizes peopleArray names and populates it on DOM
 
 //TO DO: create a function for guessing
 function guess() {
-    console.log($(this).closest('div').data('name'))
+    console.log($(this).closest('img').data('name'))
     if ($(this).closest('img').data('name') === randomlyChosen.name) {
-        alert('You got it! Refresh the page and play again! :D')
+        alert('Correct!')
     } else {
-        alert('Not quite! Give it another shot! You got this!')
+        alert('Try again!')
     }
 }
 
